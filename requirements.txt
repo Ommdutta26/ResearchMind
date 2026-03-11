@@ -1,0 +1,16 @@
+streamlit>=1.35.0
+langchain>=0.2.0
+langchain-groq>=0.1.6
+langchain-community>=0.2.0
+langchain-core>=0.2.0
+langchain-text-splitters>=0.2.0
+langgraph>=0.2.0
+langchain-tavily>=0.1.0
+faiss-cpu>=1.8.0
+sentence-transformers>=3.0.0
+rank-bm25>=0.2.2
+youtube-transcript-api>=0.6.2
+pypdf>=4.2.0
+tenacity>=8.3.0
+arxiv>=2.1.0
+wikipedia>=1.4.0

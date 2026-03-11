@@ -1,0 +1,87 @@
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+.Python
+
+# ── Virtual Environments ─────────────────────────────────────────────────────
+.env
+.venv
+env/
+venv/
+ENV/
+research-agent/
+*.conda
+
+# ── Environment Variables (NEVER commit these) ───────────────────────────────
+.env
+.env.local
+.env.development
+.env.production
+*.env
+
+# ── Database ─────────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+agent_memory.db
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+*.out
+
+# ── ML / AI Artifacts ────────────────────────────────────────────────────────
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.onnx
+*.bin
+models/
+embeddings/
+checkpoints/
+
+# ── Jupyter Notebooks ────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── OS Files ─────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE / Editor ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# ── Build / Distribution ─────────────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+site/
+
+# ── Testing ──────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# ── Node (if any frontend) ───────────────────────────────────────────────────
+node_modules/
+.next/
+.nuxt/
+
+# ── Temp / Cache ─────────────────────────────────────────────────────────────
+.cache/
+tmp/
+temp/
+*.tmp
