@@ -1,4 +1,5 @@
 # 🔬 NexusResearch – Multi-Agent AI Research System
+🚀 Live Demo:researchmind-production.up.railway.app
 
 NexusResearch is an **Agentic AI research system** that autonomously collects information from multiple sources, verifies facts, and generates structured research reports.
 
