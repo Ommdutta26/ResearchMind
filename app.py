@@ -1,11 +1,3 @@
-"""
-app.py
-NexusResearch – main Streamlit entry point.
-
-Run with:
-    streamlit run app.py
-"""
-
 from __future__ import annotations
 
 import time
