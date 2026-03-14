@@ -8,7 +8,7 @@ from langchain_groq import ChatGroq
 from langchain_tavily import TavilySearch
 from langchain_community.tools import WikipediaQueryRun, ArxivQueryRun
 from langchain_community.utilities import WikipediaAPIWrapper, ArxivAPIWrapper
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from sentence_transformers import CrossEncoder
 
