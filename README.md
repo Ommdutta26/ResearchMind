@@ -1,7 +1,7 @@
 # 🔬 NexusResearch v2 – Multi-Agent AI Research System
 
 🚀 **Live Demo:** https://nexus-research-agent-latest.onrender.com/
-
+🚀 **Project Demo:** https://drive.google.com/file/d/1aG7FciW8SFNLIYnoHuY0LL6etrNEf-Z2/view?usp=sharing
 NexusResearch is an **Agentic AI research system** that autonomously collects information from multiple sources, verifies facts, and generates structured research reports.
 
 The system combines **multi-agent orchestration, hybrid retrieval, reflection loops, inline citations, and an automated eval harness** to produce high-quality research outputs — with full cost monitoring and human-in-the-loop validation.
