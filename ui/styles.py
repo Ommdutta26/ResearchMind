@@ -1,99 +1,113 @@
 """
 ui/styles.py
-Injects the custom CSS theme into the Streamlit page.
+Global CSS injection for NexusResearch Streamlit app.
 """
 
 import streamlit as st
 
-_CSS = """
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono&display=swap');
-
-:root{
-  --bg:#0a0c10;--surf:#111418;--border:#1e2530;
-  --acc:#00e5ff;--acc2:#ff6b35;--acc3:#7fff6b;
-  --txt:#e8eaf0;--muted:#5a6478;
-  --warn:#ffab40;--ok:#00e676;--err:#ff5252
-}
-
-html,body,[class*="css"]{
-  background:var(--bg)!important;
-  color:var(--txt)!important;
-  font-family:'DM Mono',monospace
-}
-
-.stButton>button{
-  background:transparent!important;
-  border:1px solid var(--acc)!important;
-  color:var(--acc)!important;
-  font-family:'Syne',sans-serif!important;
-  font-weight:700!important;
-  border-radius:6px!important;
-  transition:all .2s!important
-}
-.stButton>button:hover{background:var(--acc)!important;color:var(--bg)!important}
-
-.stTextInput>div>input,
-.stTextArea>div>textarea{
-  background:var(--surf)!important;
-  border:1px solid var(--border)!important;
-  color:var(--txt)!important;
-  border-radius:6px!important
-}
-
-[data-testid="stSidebar"]{
-  background:var(--surf)!important;
-  border-right:1px solid var(--border)!important
-}
-
-.node-card{
-  background:var(--surf);border:1px solid var(--border);
-  border-left:3px solid var(--acc);border-radius:8px;
-  padding:12px 16px;margin:6px 0
-}
-
-.metric-row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
-.metric-tile{
-  flex:1;min-width:110px;background:var(--surf);
-  border:1px solid var(--border);border-radius:8px;
-  padding:12px;text-align:center
-}
-.metric-tile .val{
-  font-family:'Syne',sans-serif;font-size:1.4rem;
-  font-weight:800;color:var(--acc)
-}
-.metric-tile .lbl{
-  font-size:.65rem;color:var(--muted);
-  text-transform:uppercase;letter-spacing:1px;margin-top:2px
-}
-
-.report-box{
-  background:var(--surf);border:1px solid var(--border);
-  border-radius:10px;padding:28px 32px;line-height:1.8
-}
-
-.hitl-box{
-  background:#ffab4014;border:1px solid var(--warn);
-  border-radius:8px;padding:18px;margin:12px 0
-}
-
-.badge{
-  display:inline-block;padding:3px 10px;border-radius:20px;
-  font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase
-}
-.badge-run {background:#00e5ff22;color:var(--acc); border:1px solid var(--acc)}
-.badge-wait{background:#ffab4022;color:var(--warn);border:1px solid var(--warn)}
-.badge-done{background:#00e67622;color:var(--ok); border:1px solid var(--ok)}
-.badge-err {background:#ff525222;color:var(--err); border:1px solid var(--err)}
-
-.prog-wrap{background:var(--border);border-radius:4px;height:4px;margin:6px 0;overflow:hidden}
-.prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .4s}
-
-#MainMenu,footer,header{visibility:hidden}
-.block-container{padding-top:1rem!important}
-</style>
-"""
-
 
 def inject_css() -> None:
-    st.markdown(_CSS, unsafe_allow_html=True)
+    st.markdown(
+        """
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&display=swap');
+
+        /* ── Root palette ───────────────────────────────────────────────── */
+        :root {
+            --nexus-bg:      #0f0f1a;
+            --nexus-card:    #1a1a2e;
+            --nexus-border:  #2a2a4a;
+            --nexus-accent:  #7c6fe0;
+            --nexus-gold:    #ffab40;
+            --nexus-green:   #4caf82;
+            --nexus-red:     #f25c5c;
+            --nexus-text:    #e8e6f0;
+            --nexus-muted:   #8a87a0;
+        }
+
+        /* ── Base ───────────────────────────────────────────────────────── */
+        .stApp { background: var(--nexus-bg); }
+
+        /* ── HITL approval box ──────────────────────────────────────────── */
+        .hitl-box {
+            background:    linear-gradient(135deg, #1e1a3a 0%, #2a1f4a 100%);
+            border:        1px solid var(--nexus-accent);
+            border-radius: 12px;
+            padding:       20px 24px;
+            margin:        16px 0;
+            color:         var(--nexus-text);
+            font-size:     0.9rem;
+            box-shadow:    0 0 24px rgba(124,111,224,0.15);
+        }
+
+        /* ── Report display box ─────────────────────────────────────────── */
+        .report-box {
+            background:    var(--nexus-card);
+            border:        1px solid var(--nexus-border);
+            border-left:   4px solid var(--nexus-accent);
+            border-radius: 10px;
+            padding:       28px 32px;
+            color:         var(--nexus-text);
+            font-size:     0.95rem;
+            line-height:   1.75;
+            white-space:   pre-wrap;
+        }
+
+        /* ── Execution log ──────────────────────────────────────────────── */
+        .log-entry {
+            font-family:   monospace;
+            font-size:     0.8rem;
+            color:         var(--nexus-muted);
+            padding:       2px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .log-entry.error { color: var(--nexus-red); }
+
+        /* ── Status badge ───────────────────────────────────────────────── */
+        .badge {
+            display:       inline-block;
+            padding:       4px 14px;
+            border-radius: 20px;
+            font-size:     0.75rem;
+            font-family:   'Syne', sans-serif;
+            font-weight:   600;
+            letter-spacing:1px;
+            text-transform:uppercase;
+        }
+        .badge-idle    { background:#1e1e2e; color:var(--nexus-muted); border:1px solid var(--nexus-border); }
+        .badge-running { background:#1a2e1a; color:var(--nexus-green); border:1px solid var(--nexus-green); }
+        .badge-paused  { background:#2e2a1a; color:var(--nexus-gold);  border:1px solid var(--nexus-gold);  }
+        .badge-done    { background:#1a2e2a; color:#4dd0a0;            border:1px solid #4dd0a0;            }
+        .badge-error   { background:#2e1a1a; color:var(--nexus-red);   border:1px solid var(--nexus-red);   }
+
+        /* ── Eval bar ───────────────────────────────────────────────────── */
+        .eval-bar-wrap { background:#1a1a2e; border-radius:8px; height:10px; overflow:hidden; margin-top:4px; }
+        .eval-bar-fill { height:100%; border-radius:8px; transition:width 0.8s ease; }
+
+        /* ── Citation pill ──────────────────────────────────────────────── */
+        .cite-pill {
+            display:       inline-block;
+            background:    rgba(124,111,224,0.15);
+            border:        1px solid rgba(124,111,224,0.4);
+            border-radius: 4px;
+            padding:       1px 6px;
+            font-size:     0.7rem;
+            color:         var(--nexus-accent);
+            margin-left:   3px;
+            cursor:        pointer;
+        }
+
+        /* ── Domain badge ───────────────────────────────────────────────── */
+        .domain-tag {
+            font-size:     0.7rem;
+            padding:       2px 10px;
+            border-radius: 12px;
+            background:    rgba(255,171,64,0.12);
+            color:         var(--nexus-gold);
+            border:        1px solid rgba(255,171,64,0.3);
+            margin-left:   8px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )

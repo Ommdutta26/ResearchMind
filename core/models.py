@@ -1,7 +1,16 @@
 """
 core/models.py
 Cached singletons for LLMs, embedding model, reranker, and search tools.
+
+FIX from v1: get_llm no longer uses @st.cache_resource because Streamlit
+caches on the first call's args, silently returning the wrong temperature
+when different nodes request different temps.  We use a module-level LRU
+cache keyed on (model, temp) instead.
 """
+
+from __future__ import annotations
+
+import functools
 
 import streamlit as st
 from langchain_groq import ChatGroq
@@ -19,7 +28,8 @@ from core.config import (
 )
 
 
-# ── Embedding model ──────────────────────────────────────────────────────────
+# ── Embedding model ───────────────────────────────────────────────────────────
+
 @st.cache_resource
 def get_embedding_model() -> HuggingFaceEmbeddings:
     return HuggingFaceEmbeddings(
@@ -28,26 +38,51 @@ def get_embedding_model() -> HuggingFaceEmbeddings:
     )
 
 
-# ── Reranker ─────────────────────────────────────────────────────────────────
+# ── Reranker ──────────────────────────────────────────────────────────────────
+
 @st.cache_resource
 def get_reranker() -> CrossEncoder:
     return CrossEncoder(RERANKER_MODEL)
 
 
-# ── FAISS vector store (seed with a placeholder doc) ────────────────────────
-@st.cache_resource
-def get_vector_store() -> FAISS:
+# ── Chroma persistent vector store ───────────────────────────────────────────
+# Survives restarts; accumulates ingested PDFs and YT transcripts across sessions.
+
+def get_vector_store():
     emb = get_embedding_model()
-    return FAISS.from_texts(["System initialized knowledge base."], emb)
+
+    try:
+        vs = FAISS.load_local(
+            "faiss_index",
+            emb,
+            allow_dangerous_deserialization=True
+        )
+    except:
+        vs = FAISS.from_texts(
+            ["System initialized knowledge base."],
+            emb
+        )
+        vs.save_local("faiss_index")
+
+    return vs
 
 
-# ── LLM factory ──────────────────────────────────────────────────────────────
-@st.cache_resource
-def get_llm(model: str = "llama-3.3-70b-versatile", temp: float = 0.0) -> ChatGroq:
+# ── LLM factory — LRU-cached per (model, temp) ───────────────────────────────
+
+@functools.lru_cache(maxsize=16)
+def get_llm(
+    model: str = "llama-3.3-70b-versatile",
+    temp:  float = 0.0,
+) -> ChatGroq:
+    """
+    Returns a ChatGroq instance.  Cached by (model, temp) so different nodes
+    that request different temperatures always get the right object.
+    """
     return ChatGroq(model=model, temperature=temp)
 
 
-# ── Search tools ─────────────────────────────────────────────────────────────
+# ── Search tools ──────────────────────────────────────────────────────────────
+
 @st.cache_resource
 def get_tools():
     tavily = TavilySearch(max_results=3, tavily_api_key=TAVILY_API_KEY)

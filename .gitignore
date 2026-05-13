@@ -8,11 +8,12 @@ __pycache__/
 
 # ── Virtual Environments ─────────────────────────────────────────────────────
 .env
-.venv
+.venv/
 env/
 venv/
 ENV/
 research-agent/
+project/
 *.conda
 
 # ── Environment Variables (NEVER commit these) ───────────────────────────────
@@ -26,6 +27,8 @@ research-agent/
 *.db
 *.sqlite
 *.sqlite3
+*.db-shm
+*.db-wal
 agent_memory.db
 
 # ── Logs ─────────────────────────────────────────────────────────────────────
@@ -43,6 +46,10 @@ logs/
 models/
 embeddings/
 checkpoints/
+faiss_index/
+
+# ── Exported Files ───────────────────────────────────────────────────────────
+exports/
 
 # ── Jupyter Notebooks ────────────────────────────────────────────────────────
 .ipynb_checkpoints/
