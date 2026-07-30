@@ -3,6 +3,7 @@
 A multi-agent research system built on LangGraph. Given a topic, it plans domain-specific queries, retrieves data from multiple sources, drafts a report, verifies claims against evidence, critiques and refines the output, and produces a cited final report with an automated quality score.
 
 Live demo: https://nexus-research-agent-latest.onrender.com/
+**Project Demo:** https://drive.google.com/file/d/1aG7FciW8SFNLIYnoHuY0LL6etrNEf-Z2/view?usp=sharing
 
 ---
 
